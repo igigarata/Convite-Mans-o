@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Convite Mansão</title>
+  <style>
+    /* Adicionando o estilo CSS */
+    .container {
+      text-align: center;
+      margin-top: 10%;
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .buttons {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      margin: 0 auto;
+    }
+
+    .accept-button {
+      color: #ffffff;
+      background-color: #4CAF50;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      cursor: pointer;
+      border: 2px solid #333;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #f0f0f0;
+    }
+
+    .no-button {
+      background-color: #ffcccc;
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+  <div id="step1" class="container">
+    <h1>Vamos na Mansão sábado?</h1>
+    <div class="buttons">
+      <button class="accept-button" onclick="accept()">Sim</button>
+      <button id="noButton" class="no-button" onmouseenter="moveButton(event)">Não</button>
+    </div>
+  </div>
+
+  <div id="step2" class="container" style="display: none;">
+    <h2>Eu sabia que você iria</h2>
+    <h3>Só olhar o grupo do Quarteto Fantastico</h3>
+  </div>
+
+  <script>
+    // Script para movimentar o botão "Não"
+    const noButton = document.getElementById('noButton');
+    const step1 = document.getElementById('step1');
+    const step2 = document.getElementById('step2');
+
+    function moveButton(event) {
+      const button = event.target;
+      const container = button.parentElement;
+      const containerRect = container.getBoundingClientRect();
+      const maxX = containerRect.width - button.offsetWidth;
+      const maxY = containerRect.height - button.offsetHeight;
+
+      let randomX, randomY;
+      do {
+        randomX = Math.random() * maxX;
+        randomY = Math.random() * maxY;
+      } while (
+        Math.abs(randomX - parseFloat(button.style.left || '0')) < 50 ||
+        Math.abs(randomY - parseFloat(button.style.top || '0')) < 50
+      );
+
+      button.style.position = 'absolute';
+      button.style.left = `${randomX}px`;
+      button.style.top = `${randomY}px`;
+    }
+
+    // Função para aceitar
+    function accept() {
+      step1.style.display = 'none';
+      step2.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
